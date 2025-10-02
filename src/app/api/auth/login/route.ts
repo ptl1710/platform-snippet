@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/app/lib/db";
 import bcrypt from "bcryptjs";
-import { jwt } from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 export async function POST(req: Request) {
     const { email, password } = await req.json();
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         path: "/",
-        maxAge: 7 * 24 * 60 * 60, 
+        maxAge: 7 * 24 * 60 * 60,
     });
 
     return res;

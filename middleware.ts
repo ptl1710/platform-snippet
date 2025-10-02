@@ -6,7 +6,7 @@ const protectedRoutes = ["/", "/snippets", "/profile"];
 
 export function middleware(req: NextRequest) {
     const token = req.cookies.get("token")?.value; // token lưu trong cookie
-
+    console.log("Middleware token:", token);
     const { pathname } = req.nextUrl;
 
     if (!token && protectedRoutes.some((route) => pathname.startsWith(route))) {

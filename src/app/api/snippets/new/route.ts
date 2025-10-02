@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/db";
-import { getCurrentUser } from "@/lib/currentUser";
+import { prisma } from "@/app/lib/db";
+import { getCurrentUser } from "@/app/lib/currentUser";
 
 export async function POST(req: Request) {
     try {
@@ -8,6 +8,7 @@ export async function POST(req: Request) {
         if (!user) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
+        console.log("Authenticated user:", user);
 
         const { title, description, code, language, tags } = await req.json();
 
@@ -19,7 +20,7 @@ export async function POST(req: Request) {
                 language,
                 authorId: user.id,
                 topics: {
-                    connectOrCreate: tags.map((tag: string) => ({
+                    connectOrCreate: tags?.map((tag: string) => ({
                         where: { slug: tag.toLowerCase() },
                         create: { name: tag, slug: tag.toLowerCase() },
                     })),
