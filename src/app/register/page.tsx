@@ -1,11 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function RegisterPage() {
-    const router = useRouter();
     const [form, setForm] = useState({
         email: "",
         password: "",
@@ -33,7 +31,7 @@ export default function RegisterPage() {
             if (!res.ok) {
                 setError(data.error || "Register failed");
             } else {
-                router.push("/profile");
+                window.location.href = "/profile";
             }
         } catch {
             setError("Something went wrong");
