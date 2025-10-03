@@ -2,13 +2,14 @@ import { prisma } from "@/app/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
 type Params = {
-    params: { id: string };
+    params: Promise<{ id: string }>;
 };
 
 export async function GET(request: NextRequest, { params }: Params) {
     try {
+        const { id } = await params;
         const snippet = await prisma.snippet.findUnique({
-            where: { id: params.id },
+            where: { id },
             include: { author: true, topics: true },
         });
 
@@ -28,9 +29,9 @@ export async function GET(request: NextRequest, { params }: Params) {
 export async function PUT(req: Request, { params }: Params) {
     try {
         const { title, description, code, language, visibility, tags } = await req.json();
-
+        const { id } = await params;
         const updated = await prisma.snippet.update({
-            where: { id: params.id },
+            where: { id },
             data: {
                 title,
                 description,
@@ -61,7 +62,8 @@ export async function PUT(req: Request, { params }: Params) {
 
 export async function DELETE(request: NextRequest, { params }: Params) {
     try {
-        await prisma.snippet.delete({ where: { id: params.id } });
+        const { id } = await params;
+        await prisma.snippet.delete({ where: { id } });
         return NextResponse.json({ message: "Snippet deleted" });
     } catch (error: unknown) {
         if (error instanceof Error) {
