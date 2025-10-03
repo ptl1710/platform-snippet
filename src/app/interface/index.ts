@@ -27,7 +27,7 @@ export interface Author {
 }
 
 export interface SnippetPageProps {
-    params: Promise<{ id: string }>;
+    params: { id: string };
 }
 
 export interface Snippet {

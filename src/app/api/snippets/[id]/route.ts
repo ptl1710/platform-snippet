@@ -5,7 +5,7 @@ type Params = {
     params: { id: string };
 };
 
-export async function GET(req: Request, { params }: Params) {
+export async function GET({ params }: Params) {
     try {
         const snippet = await prisma.snippet.findUnique({
             where: { id: params.id },
@@ -59,7 +59,7 @@ export async function PUT(req: Request, { params }: Params) {
     }
 }
 
-export async function DELETE(req: Request, { params }: Params) {
+export async function DELETE({ params }: Params) {
     try {
         await prisma.snippet.delete({ where: { id: params.id } });
         return NextResponse.json({ message: "Snippet deleted" });
