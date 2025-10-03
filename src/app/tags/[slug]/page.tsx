@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { Snippet, Tag } from "@prisma/client";
 
 interface TagPageProps {
-    params: Promise<{ slug: string }>;
+    params: { slug: string };
 }
 
 interface SnippetWithAuthorAndTopics extends Snippet {
