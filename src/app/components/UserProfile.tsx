@@ -27,6 +27,17 @@ export default function UserProfile({ user }: UserProfileProps) {
         setSnippets((prev) => prev.filter((s) => s.id !== id));
     };
 
+
+    async function logoutApi() {
+        try {
+            await fetch("/api/auth/logout", {
+                method: "POST",
+            });
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    }
+
     return (
         <div className="space-y-6">
             <div className="flex items-center gap-4">
@@ -48,9 +59,17 @@ export default function UserProfile({ user }: UserProfileProps) {
                         Joined {new Date(user?.createdAt).toLocaleDateString()}
                     </p>
                 </div>
-                <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer"
                     onClick={() => window.location.href = "/snippets/create"} >
                     Create Snippet
+                </button>
+                <button
+                    className="mt-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 cursor-pointer"
+                    onClick={async () => {
+                        await logoutApi();
+                        window.location.href = "/";
+                    }}>
+                    Logout
                 </button>
 
             </div>
