@@ -30,7 +30,13 @@ export default function Page() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("/api/snippets")
+        fetch("/api/snippets", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include",
+        })
             .then((res) => res.json())
             .then((data) => {
                 setSnippets(data);
@@ -38,6 +44,7 @@ export default function Page() {
             })
             .catch(() => setLoading(false));
     }, []);
+
 
     if (loading) {
         return <p className="p-4">Loading snippets...</p>;

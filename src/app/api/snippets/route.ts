@@ -1,11 +1,27 @@
+import jwt from 'jsonwebtoken';
 import { prisma } from "@/app/lib/db";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("token")?.value;
+
+    if (!token) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { userId: string };
+
+
     const snippets = await prisma.snippet.findMany({
+      where: { authorId: decoded.userId },
       include: {
-        author: { select: { id: true, username: true, avatarUrl: true } },
+        author: {
+          select: { id: true, username: true, avatarUrl: true }
+        },
         topics: true,
       },
       orderBy: { createdAt: "desc" },

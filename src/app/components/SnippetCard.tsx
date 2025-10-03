@@ -66,12 +66,7 @@ export default function SnippetCard({
 
             <div className="text-xs text-gray-500 mb-3">
                 <span className="font-medium">{language}</span> • by{" "}
-                <Link
-                    href={`/profile/${author.username}`}
-                    className="hover:underline text-blue-600"
-                >
-                    {author.username}
-                </Link>{" "}
+                <span className="font-medium">{author.username}</span>
                 • {new Date(createdAt).toLocaleDateString()}
             </div>
 

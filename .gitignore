@@ -12,6 +12,9 @@
 
 /generated
 /prisma/migrations
+/prisma/generated
+/src/generated
+
 
 # testing
 /coverage

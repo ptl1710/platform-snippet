@@ -1,17 +1,20 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function CreateSnippetForm() {
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [code, setCode] = useState("");
-    const [language, setLanguage] = useState("javascript");
-    const [topics, setTopics] = useState("");
+    const [dataSnippet, setDataSnippet] = useState({
+        title: "",
+        description: "",
+        code: "",
+        language: "javascript",
+        topics: "",
+    });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
-
+    const router = useRouter();
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -26,11 +29,11 @@ export default function CreateSnippetForm() {
                 },
                 credentials: "include",
                 body: JSON.stringify({
-                    title,
-                    description,
-                    code,
-                    language,
-                    topics: topics.split(",").map((t) => t.trim()),
+                    title: dataSnippet.title,
+                    description: dataSnippet.description,
+                    code: dataSnippet.code,
+                    language: dataSnippet.language,
+                    topics: dataSnippet.topics.split(",").map((t) => t.trim()),
                 }),
             });
 
@@ -40,10 +43,14 @@ export default function CreateSnippetForm() {
             }
 
             setSuccess("Snippet created successfully!");
-            setTitle("");
-            setDescription("");
-            setCode("");
-            setTopics("");
+            setDataSnippet({
+                title: "",
+                description: "",
+                code: "",
+                language: "javascript",
+                topics: "",
+            })
+            router.back();
         } catch (err: any) {
             setError(err.message);
         } finally {
@@ -65,8 +72,8 @@ export default function CreateSnippetForm() {
                 <label className="block mb-1 font-medium">Title</label>
                 <input
                     type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={dataSnippet.title}
+                    onChange={(e) => setDataSnippet({ ...dataSnippet, title: e.target.value })}
                     className="w-full border p-2 rounded"
                     required
                 />
@@ -75,8 +82,8 @@ export default function CreateSnippetForm() {
             <div>
                 <label className="block mb-1 font-medium">Description</label>
                 <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    value={dataSnippet.description}
+                    onChange={(e) => setDataSnippet({ ...dataSnippet, description: e.target.value })}
                     className="w-full border p-2 rounded"
                     rows={3}
                 />
@@ -85,8 +92,8 @@ export default function CreateSnippetForm() {
             <div>
                 <label className="block mb-1 font-medium">Code</label>
                 <textarea
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
+                    value={dataSnippet.code}
+                    onChange={(e) => setDataSnippet({ ...dataSnippet, code: e.target.value })}
                     className="w-full font-mono border p-2 rounded"
                     rows={6}
                     required
@@ -96,8 +103,8 @@ export default function CreateSnippetForm() {
             <div>
                 <label className="block mb-1 font-medium">Language</label>
                 <select
-                    value={language}
-                    onChange={(e) => setLanguage(e.target.value)}
+                    value={dataSnippet.language}
+                    onChange={(e) => setDataSnippet({ ...dataSnippet, language: e.target.value })}
                     className="w-full border p-2 rounded"
                 >
                     <option value="javascript">JavaScript</option>
@@ -112,8 +119,8 @@ export default function CreateSnippetForm() {
                 <label className="block mb-1 font-medium">Tags (comma separated)</label>
                 <input
                     type="text"
-                    value={topics}
-                    onChange={(e) => setTopics(e.target.value)}
+                    value={dataSnippet.topics}
+                    onChange={(e) => setDataSnippet({ ...dataSnippet, topics: e.target.value })}
                     placeholder="e.g. array, sorting, react"
                     className="w-full border p-2 rounded"
                 />
