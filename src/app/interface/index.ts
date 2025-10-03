@@ -23,7 +23,7 @@ export interface User {
 export interface Author {
     id: string;
     username: string;
-    avatarUrl?: string;
+    avatarUrl?: string | null;
 }
 
 export interface SnippetPageProps {

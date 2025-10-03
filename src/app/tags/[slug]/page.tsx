@@ -1,7 +1,7 @@
+import { Snippet, Topic } from "@/app/interface";
 import { prisma } from "@/app/lib/db";
 import Image from "next/image";
 import Link from "next/link";
-import type { Snippet, Tag } from "@prisma/client";
 
 interface TagPageProps {
     params: { slug: string };
@@ -13,7 +13,7 @@ interface SnippetWithAuthorAndTopics extends Snippet {
         username: string;
         avatarUrl: string | null;
     };
-    topics: Tag[];
+    topics: Topic[];
 }
 
 export default async function TagPage({ params }: TagPageProps) {
