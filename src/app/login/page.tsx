@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -27,9 +26,8 @@ export default function LoginPage() {
             const data = await res.json();
             if (!res.ok) {
                 setError(data.error || "Login failed");
-            } else {
-                router.push("/");
             }
+            router.push("/");
         } catch {
             setError("Something went wrong");
         } finally {
