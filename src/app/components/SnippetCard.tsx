@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ComplexityBadge from "./ComplexityBadge";
+import { estimateTimeComplexity } from "../lib/complexity";
 
 type SnippetCardProps = {
     id: string;
@@ -25,6 +26,8 @@ export default function SnippetCard({
     onDelete,
 }: SnippetCardProps) {
 
+    const complexity = estimateTimeComplexity(code);
+
     const handleDelete = async () => {
         if (!confirm("Bạn có chắc muốn xóa snippet này?")) return;
         try {
@@ -45,6 +48,7 @@ export default function SnippetCard({
         }
     };
 
+
     return (
         <div className="border rounded-lg shadow-sm p-4 bg-white hover:shadow-md transition">
             <div className="flex justify-between items-center mb-2">
@@ -53,7 +57,7 @@ export default function SnippetCard({
                         {title}
                     </Link>
                 </h2>
-                <ComplexityBadge code={code} />
+                <ComplexityBadge complexity={complexity} />
             </div>
 
             <p className="text-sm text-gray-600 mb-2">

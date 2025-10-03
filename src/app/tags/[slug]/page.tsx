@@ -41,7 +41,7 @@ export default async function TagPage({ params }: TagPageProps) {
             </Link>
 
             <h1 className="text-3xl font-bold mt-4">
-                🏷️ Tag: <span className="text-blue-600">#{tag.name}</span>
+                Tag: <span className="text-blue-600">#{tag.name}</span>
             </h1>
 
             {tag.snippets.length === 0 && (
@@ -49,7 +49,7 @@ export default async function TagPage({ params }: TagPageProps) {
             )}
 
             <div className="space-y-6 mt-6">
-                {tag.snippets.map((snippet) => (
+                {tag.snippets.map((snippet: any) => (
                     <div
                         key={snippet.id}
                         className="p-4 rounded-lg border shadow-sm bg-white"

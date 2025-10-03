@@ -1,5 +1,4 @@
 import React from "react";
-import { estimateTimeComplexity } from "../lib/complexity";
 
 type Props = {
     complexity: string;
@@ -15,9 +14,7 @@ function getColor(complexity: string): string {
     return "bg-gray-100 text-gray-700 border-gray-300";
 }
 
-export default function ComplexityBadge({ code }: { code: string }) {
-
-    const complexity = estimateTimeComplexity(code);
+export default function ComplexityBadge({ complexity }: Props) {
     return (
         <span
             className={`inline-block text-xs font-medium px-2 py-1 rounded-full border ${getColor(complexity)}`}
