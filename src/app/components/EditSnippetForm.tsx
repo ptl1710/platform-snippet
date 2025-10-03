@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Topic from "../interface";
+import { Topic } from "../interface";
 
 export default function EditSnippetForm({ id }: { id: string }) {
 
