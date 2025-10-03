@@ -1,9 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import UserProfile from "../components/UserProfile";
+import { User } from "../interface";
+
 
 export default function Page() {
-    const [userInfo, setUserInfo] = useState(null);
+    const [userInfo, setUserInfo] = useState<User | null>(null);
     useEffect(() => {
         const getInfoUser = async () => {
             try {
@@ -27,7 +29,7 @@ export default function Page() {
         <div className="p-4">
             <h1 className="text-3xl font-bold">Profile</h1>
             {userInfo ? (
-                <UserProfile user={userInfo as any} />
+                <UserProfile user={userInfo} />
             ) : (
                 <p>Loading user...</p>
             )}

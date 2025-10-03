@@ -2,10 +2,8 @@ import { prisma } from "@/app/lib/db";
 import ComplexityBadge from "@/app/components/ComplexityBadge";
 import { estimateTimeComplexity } from "@/app/lib/complexity";
 import Link from "next/link";
-
-interface SnippetPageProps {
-    params: Promise<{ id: string }>;
-}
+import Image from "next/image";
+import { SnippetPageProps, Topic } from "@/app/interface";
 
 export default async function SnippetPage({ params }: SnippetPageProps) {
     const { id } = await params;
@@ -52,7 +50,7 @@ export default async function SnippetPage({ params }: SnippetPageProps) {
 
             <div className="flex items-center gap-3 mt-4">
                 {snippet.author.avatarUrl && (
-                    <img
+                    <Image
                         src={snippet.author.avatarUrl}
                         alt={snippet.author.username}
                         className="w-8 h-8 rounded-full"
@@ -62,7 +60,7 @@ export default async function SnippetPage({ params }: SnippetPageProps) {
             </div>
 
             <div className="flex flex-wrap gap-2 mt-4">
-                {snippet.topics.map((tag: any) => (
+                {snippet.topics.map((tag: Topic) => (
                     <Link
                         key={tag.id}
                         href={`/tags/${tag.slug}`}

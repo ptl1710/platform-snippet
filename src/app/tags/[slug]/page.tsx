@@ -1,8 +1,19 @@
 import { prisma } from "@/app/lib/db";
+import Image from "next/image";
 import Link from "next/link";
+import type { Snippet, Tag } from "@prisma/client";
 
 interface TagPageProps {
     params: Promise<{ slug: string }>;
+}
+
+interface SnippetWithAuthorAndTopics extends Snippet {
+    author: {
+        id: string;
+        username: string;
+        avatarUrl: string | null;
+    };
+    topics: Tag[];
 }
 
 export default async function TagPage({ params }: TagPageProps) {
@@ -49,7 +60,7 @@ export default async function TagPage({ params }: TagPageProps) {
             )}
 
             <div className="space-y-6 mt-6">
-                {tag.snippets.map((snippet: any) => (
+                {tag.snippets.map((snippet: SnippetWithAuthorAndTopics) => (
                     <div
                         key={snippet.id}
                         className="p-4 rounded-lg border shadow-sm bg-white"
@@ -66,7 +77,7 @@ export default async function TagPage({ params }: TagPageProps) {
 
                         <div className="flex items-center gap-3 mt-3 text-sm text-gray-500">
                             {snippet.author.avatarUrl && (
-                                <img
+                                <Image
                                     src={snippet.author.avatarUrl}
                                     alt={snippet.author.username}
                                     className="w-6 h-6 rounded-full"

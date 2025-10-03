@@ -1,8 +1,5 @@
 import EditSnippetForm from "@/app/components/EditSnippetForm";
-
-interface SnippetPageProps {
-    params: Promise<{ id: string }>;
-}
+import { SnippetPageProps } from "@/app/interface";
 
 export default async function PageEdit({ params }: SnippetPageProps) {
     const { id } = await params;

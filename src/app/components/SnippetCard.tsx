@@ -43,8 +43,9 @@ export default function SnippetCard({
 
             if (onDelete) onDelete(id);
             alert("Xoá thành công !");
-        } catch (err: any) {
-            alert(err.message);
+        } catch (err: unknown) {
+            if (err instanceof Error)
+                alert(err.message);
         }
     };
 

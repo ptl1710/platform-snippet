@@ -2,28 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-
-interface Author {
-    id: string;
-    username: string;
-    avatarUrl?: string;
-}
-
-interface Tag {
-    id: string;
-    name: string;
-    slug: string;
-}
-
-interface Snippet {
-    id: string;
-    title: string;
-    description: string;
-    code: string;
-    language: string;
-    author: Author;
-    topics: Tag[];
-}
+import Image from "next/image";
+import { Snippet, } from "../interface";
 
 export default function Page() {
     const [snippets, setSnippets] = useState<Snippet[]>([]);
@@ -75,7 +55,7 @@ export default function Page() {
 
                         <div className="flex items-center gap-3 mt-3 text-sm text-gray-500">
                             {snippet.author.avatarUrl && (
-                                <img
+                                <Image
                                     src={snippet.author.avatarUrl}
                                     alt={snippet.author.username}
                                     className="w-6 h-6 rounded-full"

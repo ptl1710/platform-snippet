@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Topic from "../interface";
 
 export default function EditSnippetForm({ id }: { id: string }) {
 
@@ -35,11 +36,12 @@ export default function EditSnippetForm({ id }: { id: string }) {
                     description: data.description,
                     code: data.code,
                     language: data.language,
-                    topics: data.topics.map((t: any) => t.name).join(", ")
+                    topics: data.topics.map((t: Topic) => t.name).join(", ")
                 })
                 setLoadingData(false);
-            } catch (err: any) {
-                setError(err.message);
+            } catch (err: unknown) {
+                if (err instanceof Error)
+                    setError(err.message);
             }
         };
 
@@ -73,8 +75,9 @@ export default function EditSnippetForm({ id }: { id: string }) {
 
             setSuccess("Edit created successfully!");
             router.back();
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            if (err instanceof Error)
+                setError(err.message);
         } finally {
             setLoading(false);
         }

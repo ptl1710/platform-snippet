@@ -1,4 +1,5 @@
 import { prisma } from "@/app/lib/db";
+import { Tag } from "@prisma/client";
 import Link from "next/link";
 
 export default async function TagsPage() {
@@ -9,6 +10,8 @@ export default async function TagsPage() {
         },
     });
 
+    type TagWithCount = Tag & { _count: { snippets: number } };
+
     return (
         <main className="max-w-3xl mx-auto p-6">
             <h1 className="text-3xl font-bold mb-6">All Tags</h1>
@@ -18,7 +21,7 @@ export default async function TagsPage() {
             )}
 
             <div className="flex flex-wrap gap-3">
-                {tags.map((tag : any) => (
+                {tags.map((tag: TagWithCount) => (
                     <Link
                         key={tag.id}
                         href={`/tags/${tag.slug}`}

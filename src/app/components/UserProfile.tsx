@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SnippetCard from "./SnippetCard";
+import Image from "next/image";
 
 type UserProfileProps = {
     user: {
@@ -42,7 +43,7 @@ export default function UserProfile({ user }: UserProfileProps) {
         <div className="space-y-6">
             <div className="flex items-center gap-4">
                 {user?.avatarUrl ? (
-                    <img
+                    <Image
                         src={user?.avatarUrl}
                         alt={user?.username}
                         className="w-16 h-16 rounded-full object-cover"

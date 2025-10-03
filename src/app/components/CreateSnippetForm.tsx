@@ -51,8 +51,10 @@ export default function CreateSnippetForm() {
                 topics: "",
             })
             router.back();
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message);
+            }
         } finally {
             setLoading(false);
         }

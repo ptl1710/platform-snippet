@@ -4,7 +4,7 @@ import { prisma } from "@/app/lib/db";
 import { cookies } from "next/headers";
 import { log } from "console";
 
-export async function GET(req: Request) {
+export async function GET() {
     try {
         const cookieStore = await cookies();
         const token = cookieStore.get("token")?.value;
@@ -23,7 +23,10 @@ export async function GET(req: Request) {
         if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
 
         return NextResponse.json(user);
-    } catch (err) {
-        return NextResponse.json({ error: "Invalid token" }, { status: 401 });
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            return NextResponse.json({ error: error.message }, { status: 401 });
+        }
+        return NextResponse.json({ error: "Unknown error" }, { status: 500 });
     }
 }

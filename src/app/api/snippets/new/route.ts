@@ -33,7 +33,10 @@ export async function POST(req: Request) {
         });
 
         return NextResponse.json(snippet);
-    } catch (error) {
-        return NextResponse.json({ error: "Failed to create snippet" }, { status: 500 });
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            return NextResponse.json({ error: error.message }, { status: 500 });
+        }
+        return NextResponse.json({ error: "Unknown error" }, { status: 500 });
     }
 }

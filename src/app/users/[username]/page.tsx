@@ -1,9 +1,19 @@
+import { Topic } from "@/app/interface";
 import { prisma } from "@/app/lib/db";
+import Image from "next/image";
 import Link from "next/link";
 
 interface UserPageProps {
     params: { username: string };
 }
+
+interface Snippet {
+    id: string;
+    title: string;
+    description?: string | null;
+    topics: Topic[];
+}
+
 
 export default async function UserPage({ params }: UserPageProps) {
     const user = await prisma.user.findUnique({
@@ -37,7 +47,7 @@ export default async function UserPage({ params }: UserPageProps) {
 
             <div className="flex items-center gap-4 mt-6">
                 {user.avatarUrl && (
-                    <img
+                    <Image
                         src={user.avatarUrl}
                         alt={user.username}
                         className="w-16 h-16 rounded-full border"
@@ -59,7 +69,7 @@ export default async function UserPage({ params }: UserPageProps) {
             )}
 
             <div className="space-y-6">
-                {user.snippets.map((snippet: any) => (
+                {user.snippets.map((snippet: Snippet) => (
                     <div
                         key={snippet.id}
                         className="p-4 rounded-lg border shadow-sm bg-white"
@@ -75,7 +85,7 @@ export default async function UserPage({ params }: UserPageProps) {
                         <p className="text-gray-600">{snippet.description}</p>
 
                         <div className="flex flex-wrap gap-2 mt-3">
-                            {snippet.topics.map((tag: any) => (
+                            {snippet.topics.map((tag: Topic) => (
                                 <Link
                                     key={tag.id}
                                     href={`/tags/${tag.slug}`}
