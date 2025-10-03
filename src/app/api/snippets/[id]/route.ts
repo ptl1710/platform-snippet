@@ -1,11 +1,11 @@
 import { prisma } from "@/app/lib/db";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 type Params = {
     params: { id: string };
 };
 
-export async function GET({ params }: Params) {
+export async function GET(request: NextRequest, { params }: Params) {
     try {
         const snippet = await prisma.snippet.findUnique({
             where: { id: params.id },
@@ -59,7 +59,7 @@ export async function PUT(req: Request, { params }: Params) {
     }
 }
 
-export async function DELETE({ params }: Params) {
+export async function DELETE(request: NextRequest, { params }: Params) {
     try {
         await prisma.snippet.delete({ where: { id: params.id } });
         return NextResponse.json({ message: "Snippet deleted" });
