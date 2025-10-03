@@ -15,7 +15,6 @@ export async function POST(req: Request) {
     if (!valid) {
         return NextResponse.json({ error: "Wrong password" }, { status: 401 });
     }
-    console.log({ user });
 
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
         expiresIn: "7d",

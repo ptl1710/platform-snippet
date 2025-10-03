@@ -4,12 +4,13 @@ import { estimateTimeComplexity } from "@/app/lib/complexity";
 import Link from "next/link";
 
 interface SnippetPageProps {
-    params: { id: string };
+    params: Promise<{ id: string }>;
 }
 
 export default async function SnippetPage({ params }: SnippetPageProps) {
+    const { id } = await params;
     const snippet = await prisma.snippet.findUnique({
-        where: { id: params.id },
+        where: { id },
         include: {
             author: { select: { id: true, username: true, avatarUrl: true } },
             topics: true,
@@ -19,7 +20,7 @@ export default async function SnippetPage({ params }: SnippetPageProps) {
     if (!snippet) {
         return (
             <main className="max-w-2xl mx-auto p-6">
-                <h1 className="text-2xl font-bold">Snippet not found ❌</h1>
+                <h1 className="text-2xl font-bold">Snippet not found</h1>
                 <Link href="/" className="text-blue-600 underline mt-3 inline-block">
                     ← Back to Home
                 </Link>
@@ -61,7 +62,7 @@ export default async function SnippetPage({ params }: SnippetPageProps) {
             </div>
 
             <div className="flex flex-wrap gap-2 mt-4">
-                {snippet.topics.map((tag) => (
+                {snippet.topics.map((tag: any) => (
                     <Link
                         key={tag.id}
                         href={`/tags/${tag.slug}`}

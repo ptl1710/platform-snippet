@@ -17,7 +17,6 @@ export default function Page() {
                 if (!res.ok) throw new Error("Failed to fetch user info");
                 const data = await res.json();
                 setUserInfo(data);
-                console.log("User Info:", data);
             } catch (error) {
                 console.error(error);
             }
