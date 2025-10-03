@@ -19,19 +19,12 @@ export default function CreateSnippetForm() {
         setSuccess("");
 
         try {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                setError("You must be logged in");
-                setLoading(false);
-                return;
-            }
-
             const res = await fetch("/api/snippets/new", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
                 },
+                credentials: "include",
                 body: JSON.stringify({
                     title,
                     description,

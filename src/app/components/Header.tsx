@@ -1,9 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useAuth } from "../context/AuthContext";
 
 export default function Header() {
-    const { isLoggedIn } = useAuth();
 
     return (
         <header className="bg-gray-900 text-white">
@@ -18,15 +16,9 @@ export default function Header() {
                     <Link href="/tags" className="hover:underline">
                         Tags
                     </Link>
-                    {isLoggedIn ? (
-                        <Link href="/profile" className="hover:underline">
-                            Profile
-                        </Link>
-                    ) : (
-                        <Link href="/login" className="hover:underline">
-                            Login
-                        </Link>
-                    )}
+                    <Link href="/profile" className="hover:underline">
+                        Profile
+                    </Link>
                 </nav>
             </div>
         </header>

@@ -32,8 +32,7 @@ export default function RegisterPage() {
             if (!res.ok) {
                 setError(data.error || "Register failed");
             } else {
-                localStorage.setItem("token", data.token);
-                router.push("/");
+                router.push("/profile");
             }
         } catch {
             setError("Something went wrong");

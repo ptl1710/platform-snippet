@@ -1,19 +1,22 @@
-// app/api/auth/me/route.ts
 import { NextResponse } from "next/server";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { prisma } from "@/app/lib/db";
+import { cookies } from "next/headers";
+import { log } from "console";
 
 export async function GET(req: Request) {
     try {
-        const auth = req.headers.get("authorization");
-        if (!auth) return NextResponse.json({ error: "No token" }, { status: 401 });
-        console.log("Auth Header:", auth);
-        const token = auth.split(" ")[1];
+        const cookieStore = await cookies();
+        const token = cookieStore.get("token")?.value;
+        log({ token });
+        if (!token) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
         const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
-        console.log("Decoded Token:", decoded);
 
         const user = await prisma.user.findUnique({
-            where: { id: decoded.id },
+            where: { id: decoded.userId },
             include: { snippets: true },
         });
 

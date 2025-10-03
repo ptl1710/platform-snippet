@@ -7,10 +7,12 @@ export default function Page() {
     useEffect(() => {
         const getInfoUser = async () => {
             try {
-                const token = localStorage.getItem("token");
-                if (!token) throw new Error("No token found");
                 const res = await fetch("/api/auth/user", {
-                    headers: { Authorization: `Bearer ${token}` },
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include",
                 });
                 if (!res.ok) throw new Error("Failed to fetch user info");
                 const data = await res.json();
@@ -25,7 +27,11 @@ export default function Page() {
     return (
         <div className="p-4">
             <h1 className="text-3xl font-bold">Profile</h1>
-            <UserProfile user={userInfo as any} />
+            {userInfo ? (
+                <UserProfile user={userInfo as any} />
+            ) : (
+                <p>Loading user...</p>
+            )}
         </div>
     );
 }

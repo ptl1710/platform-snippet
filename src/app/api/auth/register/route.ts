@@ -1,32 +1,47 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/app/lib/db";
-import { hashPassword, generateToken } from "@/app/lib/auth";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export async function POST(req: Request) {
   try {
     const { email, password, username, name } = await req.json();
 
-    const existing = await prisma.user.findUnique({ where: { email } });
-    if (existing) {
-      return NextResponse.json({ error: "Email already in use" }, { status: 400 });
+    if (!email || !password || !username) {
+      return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
 
-    const hashed = await hashPassword(password);
+    const existing = await prisma.user.findUnique({ where: { email } });
+    if (existing) {
+      return NextResponse.json({ error: "Email already registered" }, { status: 400 });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await prisma.user.create({
       data: {
         email,
-        password: hashed,
         username,
         name,
+        password: hashedPassword,
       },
     });
 
-    const token = generateToken({ id: user.id, email: user.email });
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
+      expiresIn: "7d",
+    });
 
-    return NextResponse.json({ token, user });
-  } catch (error) {
-    console.error("Register error:", error);
-    return NextResponse.json({ error: "Failed to register" }, { status: 500 });
+    const res = NextResponse.json({ message: "Register successful", user });
+    res.cookies.set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60,
+    });
+
+    return res;
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ error: "Register failed" }, { status: 500 });
   }
 }

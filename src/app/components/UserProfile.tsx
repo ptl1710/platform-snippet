@@ -40,6 +40,11 @@ export default function UserProfile({ user }: UserProfileProps) {
                         Joined {new Date(user?.createdAt).toLocaleDateString()}
                     </p>
                 </div>
+                <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                    onClick={() => window.location.href = "/snippets/create"} >
+                    Create Snippet
+                </button>
+
             </div>
 
             <div>
