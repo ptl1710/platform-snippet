@@ -1,6 +1,6 @@
 import { prisma } from "@/app/lib/db";
-import { Tag } from "@prisma/client";
 import Link from "next/link";
+import { Topic } from "../interface";
 
 export default async function TagsPage() {
     const tags = await prisma.tag.findMany({
@@ -10,7 +10,7 @@ export default async function TagsPage() {
         },
     });
 
-    type TagWithCount = Tag & { _count: { snippets: number } };
+    type TagWithCount = Topic & { _count: { snippets: number } };
 
     return (
         <main className="max-w-3xl mx-auto p-6">
