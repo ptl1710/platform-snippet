@@ -2,12 +2,16 @@ import { prisma } from "@/app/lib/db";
 import Link from "next/link";
 
 interface TagPageProps {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }
 
 export default async function TagPage({ params }: TagPageProps) {
+
+    const { slug } = await params;
+    console.log({ slug });
+
     const tag = await prisma.tag.findUnique({
-        where: { slug: params.slug },
+        where: { slug },
         include: {
             snippets: {
                 include: {
@@ -22,7 +26,7 @@ export default async function TagPage({ params }: TagPageProps) {
     if (!tag) {
         return (
             <main className="max-w-2xl mx-auto p-6">
-                <h1 className="text-2xl font-bold">Tag not found ❌</h1>
+                <h1 className="text-2xl font-bold">Tag not found</h1>
                 <Link href="/" className="text-blue-600 underline mt-3 inline-block">
                     ← Back to Home
                 </Link>

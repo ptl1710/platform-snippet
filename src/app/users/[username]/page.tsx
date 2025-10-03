@@ -21,7 +21,7 @@ export default async function UserPage({ params }: UserPageProps) {
     if (!user) {
         return (
             <main className="max-w-2xl mx-auto p-6">
-                <h1 className="text-2xl font-bold">User not found ❌</h1>
+                <h1 className="text-2xl font-bold">User not found</h1>
                 <Link href="/" className="text-blue-600 underline mt-3 inline-block">
                     ← Back to Home
                 </Link>
@@ -59,7 +59,7 @@ export default async function UserPage({ params }: UserPageProps) {
             )}
 
             <div className="space-y-6">
-                {user.snippets.map((snippet) => (
+                {user.snippets.map((snippet: any) => (
                     <div
                         key={snippet.id}
                         className="p-4 rounded-lg border shadow-sm bg-white"
@@ -75,7 +75,7 @@ export default async function UserPage({ params }: UserPageProps) {
                         <p className="text-gray-600">{snippet.description}</p>
 
                         <div className="flex flex-wrap gap-2 mt-3">
-                            {snippet.topics.map((tag) => (
+                            {snippet.topics.map((tag: any) => (
                                 <Link
                                     key={tag.id}
                                     href={`/tags/${tag.slug}`}

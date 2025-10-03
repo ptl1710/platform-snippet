@@ -1,3 +1,4 @@
+import { useState } from "react";
 import SnippetCard from "./SnippetCard";
 
 type UserProfileProps = {
@@ -19,6 +20,13 @@ type UserProfileProps = {
 };
 
 export default function UserProfile({ user }: UserProfileProps) {
+
+    const [snippets, setSnippets] = useState(user.snippets);
+
+    const handleDelete = (id: string) => {
+        setSnippets((prev) => prev.filter((s) => s.id !== id));
+    };
+
     return (
         <div className="space-y-6">
             <div className="flex items-center gap-4">
@@ -49,9 +57,9 @@ export default function UserProfile({ user }: UserProfileProps) {
 
             <div>
                 <h2 className="text-xl font-semibold mb-3">Snippets</h2>
-                {user?.snippets.length > 0 ? (
+                {snippets.length > 0 ? (
                     <div className="grid gap-4 md:grid-cols-2">
-                        {user?.snippets.map((snippet) => (
+                        {snippets?.map((snippet) => (
                             <SnippetCard
                                 key={snippet.id}
                                 id={snippet.id}
@@ -61,6 +69,7 @@ export default function UserProfile({ user }: UserProfileProps) {
                                 code={snippet.code}
                                 author={{ username: user?.username }}
                                 createdAt={snippet.createdAt}
+                                onDelete={handleDelete}
                             />
                         ))}
                     </div>
