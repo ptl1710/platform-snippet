@@ -45,7 +45,7 @@ export default function Page() {
 
     return (
         <main className="max-w-3xl mx-auto p-6">
-            <h1 className="text-3xl font-bold mb-6">🚀 Shared Snippets</h1>
+            <h1 className="text-3xl font-bold mb-6">Shared Snippets</h1>
 
             {snippets.length === 0 && <p>No snippets found. Try seeding DB!</p>}
 
