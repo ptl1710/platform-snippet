@@ -1,0 +1,75 @@
+{
+    "Header": {
+        "title": "Share Snippets",
+        "profile": "Trang cá nhân",
+        "snippets": "Mã mẫu"
+    },
+    "LoginPage": {
+        "title": "Đăng nhập",
+        "email": "Email",
+        "password": "Mật khẩu",
+        "button": "Đăng nhập",
+        "button_loading": "Đang đăng nhập ...",
+        "no_account": "Chưa có tài khoản?",
+        "register": "Đăng ký",
+        "something_went_wrong": "Xảy ra lỗi",
+        "success": "Đăng nhập thành công"
+    },
+    "RegisterPage": {
+        "title": "Đăng ký tài khoản",
+        "name": "Họ và tên",
+        "username": "Tên người dùng",
+        "email": "Email",
+        "password": "Mật khẩu",
+        "button": "Tạo tài khoản",
+        "button_loading": "Đang tạo tài khoản ...",
+        "already_have_account": "Đã có tài khoản?",
+        "login": "Đăng nhập"
+    },
+    "Auth": {
+        "invalid_credentials": "Email không tồn tại hoặc sai thông tin đăng nhập.",
+        "wrong_password": "Mật khẩu không đúng.",
+        "login_success": "Đăng nhập thành công!",
+        "missing_fields": "Vui lòng nhập đầy đủ thông tin",
+        "email_exists": "Email đã được đăng ký",
+        "register_success": "Đăng ký thành công"
+    },
+    "Snippets": {
+        "title": "Danh sách mã mẫu",
+        "loading_snippets": "Đang lấy danh sách mã mẫu...",
+        "no_snippet": "Chưa có mã mẫu nào",
+        "create_tilte": "Tạo mã mẫu mới",
+        "create_desctiption": "Đây là trang tạo mới mã mẫu",
+        "create_form_button": "Tạo",
+        "create_form_button_loading": "Đang tạo...",
+        "form_title": "Tiêu đề",
+        "form_description": "Mô tả",
+        "form_code": "Mã mẫu",
+        "form_language": "Ngôn ngữ",
+        "form_tags": "Tags (được phân tách bằng dấu phẩy)",
+        "edit_title": "Chỉnh sửa mã mẫu",
+        "edit_description": "Đây là trang chỉnh sửa mã mẫu",
+        "edit_form_button": "chỉnh sửa",
+        "edit_form_button_loading": "Đang chỉnh sửa...",
+        "create_button": "Tạo mới mã mẫu",
+        "edit_button": "Chỉnh sửa mã mẫu",
+        "delete_button": "Xóa mã mẫu",
+        "view_more": "Xem thêm ▼",
+        "view_less": "Thu gọn ▲",
+        "back_to_list": "Quay về danh sách",
+        "tags_loading": "Đang lấy danh sách mã mẫu theo tags...",
+        "tags_no_snippets": "Không có mã mẫu nào cho tags này",
+        "tags_not_found": "Không tìm thấy tags"
+    },
+    "Profile": {
+        "title": "Trang cá nhân",
+        "user_loading": "Đang lấy thống tin người dùng...",
+        "logout_button": "Đăng Xuất",
+        "join_date": "Ngày đăng ký"
+    },
+    "Tags": {
+        "title": "Danh sách tags",
+        "loading_tags": "Đang lấy danh sách tags...",
+        "no_tag": "Chưa có tag nào"
+    }
+}

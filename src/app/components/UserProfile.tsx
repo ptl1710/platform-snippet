@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SnippetCard from "./SnippetCard";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 type UserProfileProps = {
     user: {
@@ -22,7 +23,7 @@ type UserProfileProps = {
 
 export default function UserProfile({ user }: UserProfileProps) {
     const [snippets, setSnippets] = useState(user.snippets);
-
+    const t = useTranslations("");
     const handleDelete = (id: string) => {
         setSnippets((prev) => prev.filter((s) => s.id !== id));
     };
@@ -58,7 +59,7 @@ export default function UserProfile({ user }: UserProfileProps) {
                     </h1>
                     <p className="text-gray-500">@{user?.username}</p>
                     <p className="text-sm text-gray-400">
-                        Joined {new Date(user?.createdAt).toLocaleDateString()}
+                        {t("Profile.join_date")}: {new Date(user?.createdAt).toLocaleDateString()}
                     </p>
                 </div>
 
@@ -67,7 +68,7 @@ export default function UserProfile({ user }: UserProfileProps) {
                         className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer w-full sm:w-auto"
                         onClick={() => (window.location.href = "/snippets/create")}
                     >
-                        Create Snippet
+                        {t("Snippets.create_button")}
                     </button>
                     <button
                         className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 cursor-pointer w-full sm:w-auto"
@@ -76,7 +77,7 @@ export default function UserProfile({ user }: UserProfileProps) {
                             window.location.href = "/";
                         }}
                     >
-                        Logout
+                        {t("Profile.logout_button")}
                     </button>
                 </div>
             </div>
@@ -101,7 +102,7 @@ export default function UserProfile({ user }: UserProfileProps) {
                     </div>
                 ) : (
                     <p className="text-gray-500 text-center sm:text-left">
-                        This user hasn’t shared any snippets yet.
+                        {t("Snippets.no_snippets")}
                     </p>
                 )}
             </div>

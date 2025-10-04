@@ -1,10 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import UserProfile from "../components/UserProfile";
-import { User } from "../interface";
+import { useTranslations } from "next-intl";
+import UserProfile from "../../components/UserProfile";
+import { User } from "../../interface";
 
 
 export default function Page() {
+    const t = useTranslations("Profile");
     const [userInfo, setUserInfo] = useState<User | null>(null);
     useEffect(() => {
         const getInfoUser = async () => {
@@ -31,7 +33,7 @@ export default function Page() {
             {userInfo ? (
                 <UserProfile user={userInfo} />
             ) : (
-                <p>Loading user...</p>
+                <p>{t("user_loading")}</p>
             )}
         </div>
     );

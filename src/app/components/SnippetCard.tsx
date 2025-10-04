@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import ComplexityBadge from "./ComplexityBadge";
 import { estimateTimeComplexity } from "../lib/complexity";
+import { useTranslations } from "next-intl";
 
 type SnippetCardProps = {
     id: string;
@@ -29,7 +30,7 @@ export default function SnippetCard({
 }: SnippetCardProps) {
     const complexity = estimateTimeComplexity(code);
     const [expanded, setExpanded] = useState(false);
-
+    const t = useTranslations("");
     const handleDelete = async () => {
         if (!confirm("Bạn có chắc muốn xóa snippet này?")) return;
         try {
@@ -82,7 +83,7 @@ export default function SnippetCard({
                     onClick={() => setExpanded((prev) => !prev)}
                     className="mt-2 text-blue-600 text-xs sm:text-sm hover:underline"
                 >
-                    {expanded ? "View Less ▲" : "View More ▼"}
+                    {expanded ? t("Snippets.view_less") : t("Snippets.view_more")}
                 </button>
             </div>
 
@@ -91,13 +92,13 @@ export default function SnippetCard({
                     href={`/snippets/${id}/edit`}
                     className="px-3 py-1 text-xs sm:text-sm bg-yellow-500 text-white rounded hover:bg-yellow-600 text-center"
                 >
-                    Edit
+                    {t("Snippets.edit_button")}
                 </Link>
                 <button
                     onClick={handleDelete}
                     className="px-3 py-1 text-xs sm:text-sm bg-red-600 text-white rounded hover:bg-red-700"
                 >
-                    Delete
+                    {t("Snippets.delete_button")}
                 </button>
             </div>
         </div>

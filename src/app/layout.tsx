@@ -16,19 +16,6 @@ export default async function RootLayout({
 
 
   return (
-    <html lang="en">
-      <body className="bg-gray-50 min-h-screen">
-        <div className="min-h-screen flex flex-col">
-          <Header />
-          <main className="flex-1 container mx-auto px-4 py-6">{children}</main>
-
-          <footer className="bg-gray-100 text-center py-4 border-t">
-            <p className="text-sm text-gray-500">
-              © {new Date().getFullYear()} CodeShare. All rights reserved.
-            </p>
-          </footer>
-        </div>
-      </body>
-    </html>
+    children
   );
 }

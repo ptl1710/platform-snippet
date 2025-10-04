@@ -1,0 +1,75 @@
+{
+    "Header": {
+        "title": "Share Snippets",
+        "profile": "Profile",
+        "snippets": "Snippets"
+    },
+    "LoginPage": {
+        "title": "Login",
+        "email": "Email",
+        "password": "Password",
+        "button": "Login",
+        "button_loading": "Logging in...",
+        "no_account": "Don't have an account?",
+        "register": "Register",
+        "something_went_wrong": "Something went wrong",
+        "success": "Login successful"
+    },
+    "RegisterPage": {
+        "title": "Create an Account",
+        "name": "Full name",
+        "username": "Username",
+        "email": "Email",
+        "password": "Password",
+        "button": "Register",
+        "button_loading": "Registering...",
+        "already_have_account": "Already have an account?",
+        "login": "Login"
+    },
+    "Auth": {
+        "invalid_credentials": "Email not found or invalid credentials.",
+        "wrong_password": "Incorrect password.",
+        "login_success": "Login successful!",
+        "missing_fields": "Please fill in all fields",
+        "email_exists": "Email is already registered",
+        "register_success": "Registration successful"
+    },
+    "Snippets": {
+        "title": "List Snippets",
+        "loading_snippets": "Loading snippets...",
+        "no_snippet": "No snippets yet",
+        "create_tilte": "Create New Snippet",
+        "create_desctiption": "This is the create snippet page.",
+        "create_form_button": "Create",
+        "create_form_button_loading": "Creating...",
+        "form_title": "Title",
+        "form_description": "Description",
+        "form_code": "Code",
+        "form_language": "Language",
+        "form_tags": "Tags (comma separated)",
+        "edit_title": "Edit Snippet",
+        "edit_description": "This is the edit snippet page.",
+        "create_button": "Create new snippet",
+        "edit_button": "Edit snippet",
+        "edit_form_button": "Edit",
+        "edit_form_button_loading": "Editing...",
+        "delete_button": "Delete snippet",
+        "view_more": "View More ▼",
+        "view_less": "View Less ▲",
+        "back_to_list": "Back to List",
+        "tags_loading": "Loading snippets by tags...",
+        "tags_no_snippets": "No snippets for this tag yet.",
+        "tags_not_found": "Tags not found"
+    },
+    "Profile": {
+        "title": "Profile User",
+        "user_loading": "Loading user...",
+        "logout_button": "Logout",
+        "join_date": "Join date"
+    },
+    "Tags": {
+        "title": "List Tags",
+        "loading_tags": "Loading tags...",
+        "no_tag": "No tags yet"
+    }
+}

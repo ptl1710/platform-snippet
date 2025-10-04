@@ -1,17 +1,14 @@
 "use client";
-
 import { useState } from "react";
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 
-export default function RegisterPage() {
-    const [form, setForm] = useState({
-        email: "",
-        password: "",
-        username: "",
-        name: "",
-    });
+export default function LoginPage() {
+    const [form, setForm] = useState({ email: "", password: "" });
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const locale = useLocale();
+    const t = useTranslations("LoginPage");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,19 +19,23 @@ export default function RegisterPage() {
         setLoading(true);
         setError("");
         try {
-            const res = await fetch("/api/auth/register", {
+            const res = await fetch(`/api/auth/login?locale=${locale}`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "Content-Language": locale
+                },
                 body: JSON.stringify(form),
             });
             const data = await res.json();
             if (!res.ok) {
-                setError(data.error || "Register failed");
-            } else {
-                window.location.href = "/profile";
+                setError(data.error || "Login failed");
+            }
+            else {
+                window.location.href = "/";
             }
         } catch {
-            setError("Something went wrong");
+            setError(t("something_went_wrong"));
         } finally {
             setLoading(false);
         }
@@ -42,40 +43,23 @@ export default function RegisterPage() {
 
     return (
         <main className="max-w-md mx-auto p-6">
-            <h1 className="text-2xl font-bold mb-4">Register</h1>
+            <h1 className="text-2xl font-bold mb-4">{t("title")}</h1>
             {error && <p className="text-red-600 mb-3">{error}</p>}
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 <input
                     name="email"
                     type="email"
-                    placeholder="Email"
+                    placeholder={t("email")}
                     value={form.email}
                     onChange={handleChange}
                     className="w-full border rounded p-2"
                     required
                 />
                 <input
-                    name="username"
-                    type="text"
-                    placeholder="Username"
-                    value={form.username}
-                    onChange={handleChange}
-                    className="w-full border rounded p-2"
-                    required
-                />
-                <input
-                    name="name"
-                    type="text"
-                    placeholder="Full name"
-                    value={form.name}
-                    onChange={handleChange}
-                    className="w-full border rounded p-2"
-                />
-                <input
                     name="password"
                     type="password"
-                    placeholder="Password"
+                    placeholder={t("password")}
                     value={form.password}
                     onChange={handleChange}
                     className="w-full border rounded p-2"
@@ -86,11 +70,11 @@ export default function RegisterPage() {
                     disabled={loading}
                     className="w-full bg-blue-600 text-white rounded p-2 hover:bg-blue-700 disabled:opacity-50"
                 >
-                    {loading ? "Registering..." : "Register"}
+                    {loading ? t("button_loading") : t("button")}
                 </button>
             </form>
-            <Link href="/login" className="text-blue-600 hover:underline mt-4 block text-center">
-                Already have an account? Login
+            <Link href="/register" className="text-blue-600 hover:underline mt-4 block text-center">
+                {t("no_account")} {t("register")}
             </Link>
         </main>
     );
