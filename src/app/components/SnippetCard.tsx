@@ -25,7 +25,6 @@ export default function SnippetCard({
     createdAt,
     onDelete,
 }: SnippetCardProps) {
-
     const complexity = estimateTimeComplexity(code);
 
     const handleDelete = async () => {
@@ -44,16 +43,14 @@ export default function SnippetCard({
             if (onDelete) onDelete(id);
             alert("Xoá thành công !");
         } catch (err: unknown) {
-            if (err instanceof Error)
-                alert(err.message);
+            if (err instanceof Error) alert(err.message);
         }
     };
 
-
     return (
         <div className="border rounded-lg shadow-sm p-4 bg-white hover:shadow-md transition">
-            <div className="flex justify-between items-center mb-2">
-                <h2 className="text-lg font-semibold">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 gap-2">
+                <h2 className="text-base sm:text-lg font-semibold">
                     <Link href={`/snippets/${id}`} className="hover:underline">
                         {title}
                     </Link>
@@ -61,30 +58,30 @@ export default function SnippetCard({
                 <ComplexityBadge complexity={complexity} />
             </div>
 
-            <p className="text-sm text-gray-600 mb-2">
+            <p className="text-xs sm:text-sm text-gray-600 mb-2">
                 {description || "No description"}
             </p>
 
-            <div className="text-xs text-gray-500 mb-3">
-                <span className="font-medium">{language}</span> • by{" "}
-                <span className="font-medium">{author.username}</span>
-                • {new Date(createdAt).toLocaleDateString()}
+            <div className="text-xs sm:text-sm text-gray-500 mb-3 flex flex-col sm:flex-row gap-1 sm:gap-2">
+                <span className="font-medium">{language}</span> •{" "}
+                <span className="font-medium">{author.username}</span> •{" "}
+                {new Date(createdAt).toLocaleDateString()}
             </div>
 
-            <pre className="bg-gray-900 text-green-200 text-sm rounded-md p-3 overflow-x-auto max-h-40">
+            <pre className="bg-gray-900 text-green-200 text-xs sm:text-sm rounded-md p-2 sm:p-3 overflow-x-auto max-h-32 sm:max-h-40">
                 <code>{code.slice(0, 200)}...</code>
             </pre>
 
-            <div className="flex gap-3 mt-3">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-3">
                 <Link
                     href={`/snippets/${id}/edit`}
-                    className="px-3 py-1 text-sm bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                    className="px-3 py-1 text-xs sm:text-sm bg-yellow-500 text-white rounded hover:bg-yellow-600 text-center"
                 >
                     Edit
                 </Link>
                 <button
                     onClick={handleDelete}
-                    className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
+                    className="px-3 py-1 text-xs sm:text-sm bg-red-600 text-white rounded hover:bg-red-700"
                 >
                     Delete
                 </button>
