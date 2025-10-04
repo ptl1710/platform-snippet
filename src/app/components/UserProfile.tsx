@@ -37,9 +37,7 @@ export default function UserProfile({ user }: UserProfileProps) {
 
     return (
         <div className="space-y-6">
-            {/* User Info */}
             <div className="flex flex-col md:flex-row md:items-center md:gap-6 gap-4">
-                {/* Avatar */}
                 {user?.avatarUrl ? (
                     <Image
                         src={user?.avatarUrl}
@@ -54,7 +52,6 @@ export default function UserProfile({ user }: UserProfileProps) {
                     </div>
                 )}
 
-                {/* Info */}
                 <div className="text-center md:text-left">
                     <h1 className="text-xl md:text-2xl font-bold">
                         {user?.name || user?.username}
@@ -65,7 +62,6 @@ export default function UserProfile({ user }: UserProfileProps) {
                     </p>
                 </div>
 
-                {/* Actions */}
                 <div className="flex flex-col sm:flex-row gap-2 md:ml-auto">
                     <button
                         className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer w-full sm:w-auto"
@@ -85,7 +81,6 @@ export default function UserProfile({ user }: UserProfileProps) {
                 </div>
             </div>
 
-            {/* Snippet List */}
             <div>
                 <h2 className="text-lg md:text-xl font-semibold mb-3">Snippets</h2>
                 {snippets.length > 0 ? (

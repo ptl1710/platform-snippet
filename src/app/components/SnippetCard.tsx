@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import Link from "next/link";
 import ComplexityBadge from "./ComplexityBadge";
 import { estimateTimeComplexity } from "../lib/complexity";
@@ -26,6 +28,7 @@ export default function SnippetCard({
     onDelete,
 }: SnippetCardProps) {
     const complexity = estimateTimeComplexity(code);
+    const [expanded, setExpanded] = useState(false);
 
     const handleDelete = async () => {
         if (!confirm("Bạn có chắc muốn xóa snippet này?")) return;
@@ -48,9 +51,9 @@ export default function SnippetCard({
     };
 
     return (
-        <div className="border rounded-lg shadow-sm p-4 bg-white hover:shadow-md transition">
+        <div className="w-full max-w-full border rounded-lg shadow-sm p-3 sm:p-4 bg-white hover:shadow-md transition">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 gap-2">
-                <h2 className="text-base sm:text-lg font-semibold">
+                <h2 className="text-sm sm:text-lg font-semibold break-words">
                     <Link href={`/snippets/${id}`} className="hover:underline">
                         {title}
                     </Link>
@@ -58,7 +61,7 @@ export default function SnippetCard({
                 <ComplexityBadge complexity={complexity} />
             </div>
 
-            <p className="text-xs sm:text-sm text-gray-600 mb-2">
+            <p className="text-xs sm:text-sm text-gray-600 mb-2 break-words">
                 {description || "No description"}
             </p>
 
@@ -68,9 +71,20 @@ export default function SnippetCard({
                 {new Date(createdAt).toLocaleDateString()}
             </div>
 
-            <pre className="bg-gray-900 text-green-200 text-xs sm:text-sm rounded-md p-2 sm:p-3 overflow-x-auto max-h-32 sm:max-h-40">
-                <code>{code.slice(0, 200)}...</code>
-            </pre>
+            <div className="relative">
+                <pre
+                    className={`bg-gray-900 text-green-200 text-xs sm:text-sm rounded-md p-2 sm:p-3 overflow-x-auto break-words whitespace-pre-wrap transition-all ${expanded ? "max-h-96" : "max-h-20 sm:max-h-40"
+                        }`}
+                >
+                    <code>{code}</code>
+                </pre>
+                <button
+                    onClick={() => setExpanded((prev) => !prev)}
+                    className="mt-2 text-blue-600 text-xs sm:text-sm hover:underline"
+                >
+                    {expanded ? "View Less ▲" : "View More ▼"}
+                </button>
+            </div>
 
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-3">
                 <Link
